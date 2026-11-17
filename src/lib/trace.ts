@@ -182,8 +182,8 @@ function makeSimple(id: "max" | "min" | "sum" | "count"): Algo {
       continue;
     }
 
-    const hit = id === "max" ? data > acc : data < acc;
-    const op = id === "max" ? ">" : "<";
+    const hit = id === "max" ? data >= acc : data <= acc;
+    const op = id === "max" ? "≧" : "≦";
     pushStep(
       b,
       {
@@ -237,13 +237,13 @@ function makeSimple(id: "max" | "min" | "sum" | "count"): Algo {
     id === "max"
       ? [
           "最大を入れる変数には、最初に小さな値（ここでは 0）を入れておく。",
-          "読み込んだデータと最大を比べ、データの方が大きいときだけ最大を入れ替える。",
+          "読み込んだデータと最大を比べ、データが最大以上のとき最大を入れ替える。",
           "999 はデータではなく、繰り返しを終えるための印。",
         ]
       : id === "min"
         ? [
             "最小を入れる変数には、最初に大きな値（ここでは 999）を入れておく。",
-            "読み込んだデータと最小を比べ、データの方が小さいときだけ最小を入れ替える。",
+            "読み込んだデータと最小を比べ、データが最小以下のとき最小を入れ替える。",
             "999 は終端の印なので、最小の候補にはしない。",
           ]
         : id === "count"
@@ -264,7 +264,7 @@ function makeSimple(id: "max" | "min" | "sum" | "count"): Algo {
     id,
     name: names[id],
     initText: id === "min" ? "999 → 最小" : id === "count" ? "0 → 件数" : id === "sum" ? "0 → 合計" : "0 → 最大",
-    compareText: id === "max" ? "データ > 最大" : "データ < 最小",
+    compareText: id === "max" ? "データ ≧ 最大" : "データ ≦ 最小",
     assignText: id === "sum" ? "合計+データ→合計" : id === "count" ? "件数+1→件数" : id === "max" ? "データ→最大" : "データ→最小",
     displayText: `${labels[0]}を表示`,
     columns: labels,
